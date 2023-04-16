@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, type PropType } from 'vue';
 import { mapState } from 'pinia';
 
 import AddPersonComponent from '@/components/AddPersonComponent.vue';
@@ -51,7 +51,7 @@ export default defineComponent({
         PersonComponent,
     },
     props: {
-        onSwapTheme: Function,
+        onSwapTheme: Function as PropType<(e: MouseEvent) => void>,
     },
     data(): DataInterface {
         return {
