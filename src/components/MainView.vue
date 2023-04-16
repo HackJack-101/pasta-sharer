@@ -1,0 +1,79 @@
+<template>
+    <NLayout position="absolute">
+        <NLayoutHeader>
+            <img alt="Vue logo" class="logo" src="../assets/logo.svg" width="125" height="125" />
+        </NLayoutHeader>
+        <NLayoutContent>
+            <PersonComponent v-for="person in persons" :key="person.index" :person="person"></PersonComponent>
+
+            <AddPersonComponent></AddPersonComponent>
+
+            <CookComponent></CookComponent>
+        </NLayoutContent>
+
+        <NLayoutFooter>
+            <n-card>
+                <n-space>
+                    <n-button @click="onSwapTheme"> Changer de thème </n-button>
+                </n-space>
+            </n-card>
+        </NLayoutFooter>
+    </NLayout>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { mapState } from 'pinia';
+
+import AddPersonComponent from '@/components/AddPersonComponent.vue';
+import CookComponent from '@/components/CookComponent.vue';
+import PersonComponent from '@/components/PersonComponent.vue';
+import usePastaStore from '@/stores/pasta';
+
+import { NLayout, NLayoutHeader, NLayoutContent, NLayoutFooter, NCard, NSpace, NButton } from 'naive-ui';
+
+interface DataInterface {
+    name?: string;
+    rawQuantity?: number;
+}
+
+export default defineComponent({
+    components: {
+        AddPersonComponent,
+        CookComponent,
+        NButton,
+        NCard,
+        NLayout,
+        NLayoutContent,
+        NLayoutFooter,
+        NLayoutHeader,
+        NSpace,
+        PersonComponent,
+    },
+    props: {
+        onSwapTheme: Function,
+    },
+    data(): DataInterface {
+        return {
+            name: undefined,
+            rawQuantity: undefined,
+        };
+    },
+    computed: {
+        ...mapState(usePastaStore, {
+            persons: 'persons',
+        }),
+    },
+    methods: {
+        addPerson() {
+            if (this.name && this.rawQuantity) {
+                const pastaStore = usePastaStore();
+                pastaStore.addPerson(this.name, this.rawQuantity);
+
+                this.name = undefined;
+                this.rawQuantity = undefined;
+            }
+        },
+    },
+});
+</script>
