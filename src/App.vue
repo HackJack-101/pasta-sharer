@@ -7,9 +7,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { darkTheme, lightTheme, NConfigProvider } from 'naive-ui';
+import { darkTheme, lightTheme, NConfigProvider, useOsTheme } from 'naive-ui';
 
 import MainView from '@/components/MainView.vue';
+
+interface DataInterface {
+    userChoice: 'dark' | 'light' | undefined;
+}
 
 export default defineComponent({
     components: {
@@ -22,17 +26,28 @@ export default defineComponent({
             lightTheme,
         };
     },
-    data() {
-        return { theme: lightTheme, themeName: 'light' };
+    data(): DataInterface {
+        return { userChoice: undefined };
+    },
+    computed: {
+        theme(): any {
+            const osThemeRef = useOsTheme();
+            if (this.userChoice === 'light') {
+                return lightTheme;
+            }
+            if (this.userChoice === 'dark') {
+                return darkTheme;
+            }
+
+            return osThemeRef.value === 'dark' ? darkTheme : lightTheme;
+        },
     },
     methods: {
         swapTheme() {
-            if (this.themeName === 'light') {
-                this.themeName = 'dark';
-                this.theme = darkTheme;
+            if (this.userChoice === 'light') {
+                this.userChoice = 'dark';
             } else {
-                this.themeName = 'light';
-                this.theme = lightTheme;
+                this.userChoice = 'light';
             }
         },
     },
