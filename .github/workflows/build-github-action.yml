@@ -28,3 +28,11 @@ jobs:
 
       - name: Build
         run: npm run build
+        
+      - name: Push build on gh-pages
+        run: |
+          git checkout gh-pages
+          mv dist/* .
+          git add .
+          git commit -m "New deployment"
+          git push
