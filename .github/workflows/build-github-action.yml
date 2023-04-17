@@ -3,8 +3,7 @@ name: 'Build Vue app'
 on:
   workflow_dispatch:
   push:
-    branches:
-      - master
+    branches: ['master']
       
 permissions:
   actions: write
