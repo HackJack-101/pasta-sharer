@@ -1,14 +1,14 @@
 <template>
     <NCard title="Ajouter une personne">
-        <NForm ref="formRef" :label-width="80" :model="formPerson" size="medium" @keydown.enter="addPerson">
+        <NForm ref="formRef" :label-width="80" :model="formPerson" size="large" @keydown.enter="addPerson">
             <NFormItem label="Nom" path="name">
                 <NInput v-model:value="formPerson.name" placeholder="Marine" />
             </NFormItem>
             <NFormItem label="Quantité crue" path="rawQuantity">
-                <NInputNumber v-model:value="formPerson.rawQuantity" placeholder="80" />
-            </NFormItem>
-            <NFormItem>
-                <NButton @click="addPerson"> Ajouter </NButton>
+                <NSpace>
+                    <NInputNumber v-model:value="formPerson.rawQuantity" placeholder="80" />
+                    <NButton @click="addPerson"> Ajouter </NButton>
+                </NSpace>
             </NFormItem>
         </NForm>
     </NCard>
@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { NButton, NCard, NForm, NFormItem, NInput, NInputNumber } from 'naive-ui';
+import { NButton, NCard, NForm, NFormItem, NInput, NInputNumber, NSpace } from 'naive-ui';
 
 import usePastaStore from '@/stores/pasta';
 
@@ -35,6 +35,7 @@ export default defineComponent({
         NFormItem,
         NInput,
         NInputNumber,
+        NSpace,
     },
     data(): DataInterface {
         return {

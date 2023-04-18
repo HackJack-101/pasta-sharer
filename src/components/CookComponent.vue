@@ -1,6 +1,6 @@
 <template>
     <NCard title="Partager">
-        <NForm ref="formRef" inline :label-width="80" :model="form" size="medium" @keydown.enter="cook">
+        <NForm ref="formRef" inline :label-width="80" :model="form" size="large" @keydown.enter="cook">
             <NFormItem label="Résultat de la cuisson" path="cookedQuantity">
                 <NInputNumber v-model:value="form.cookedQuantity" placeholder="415"></NInputNumber>
             </NFormItem>

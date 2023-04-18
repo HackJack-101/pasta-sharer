@@ -6,15 +6,24 @@ export class Person {
     public name: string;
     public rawQuantity: number;
 
-    public constructor(index: number, name: string, rawQuantity: number) {
+    public constructor(index: number, name: string, rawQuantity: number, cookedQuantity?: number) {
         this.rawQuantity = rawQuantity;
         this.index = index;
         this.name = name;
+        this.cookedQuantity = cookedQuantity;
     }
 
     public cook(totalRawQuantity: number, totalCookedQuantity: number) {
         this.cookedQuantity = (this.rawQuantity * totalCookedQuantity) / totalRawQuantity;
     }
+}
+
+function parseJsonToPerson(data: string) {
+    const storedState = JSON.parse(data) as StateInterface;
+    const newState = { ...storedState } as StateInterface;
+    newState.persons = storedState.persons.map((person) => new Person(person.index, person.name, person.rawQuantity, person.cookedQuantity));
+
+    return newState;
 }
 
 export interface StateInterface {
@@ -38,6 +47,15 @@ const usePastaStore = defineStore('pasta', {
             this.persons.forEach((person: Person) => {
                 person.cook(totalRawQuantity, cookedQuantity);
             });
+        },
+        reset() {
+            this.persons = [];
+        },
+    },
+    persist: {
+        serializer: {
+            deserialize: parseJsonToPerson,
+            serialize: JSON.stringify,
         },
     },
     state(): StateInterface {
