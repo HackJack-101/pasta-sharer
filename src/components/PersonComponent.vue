@@ -7,9 +7,9 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue';
-import type { Person } from '@/stores/pasta';
-
 import { NCard } from 'naive-ui';
+
+import type { Person } from '@/stores/pasta';
 
 export default defineComponent({
     components: { NCard },

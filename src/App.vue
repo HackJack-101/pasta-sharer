@@ -1,12 +1,11 @@
 <template>
-    <n-config-provider :theme="theme">
+    <NConfigProvider :theme="theme">
         <MainView :on-swap-theme="swapTheme"></MainView>
-    </n-config-provider>
+    </NConfigProvider>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-
 import { darkTheme, lightTheme, NConfigProvider, useOsTheme } from 'naive-ui';
 
 import MainView from '@/components/MainView.vue';

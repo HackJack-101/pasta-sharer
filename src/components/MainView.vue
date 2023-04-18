@@ -1,22 +1,24 @@
 <template>
     <NLayout position="absolute">
         <NLayoutHeader>
-            <h1>Pasta Sharer</h1>
+            <div class="text-center text-2xl font-bold">Pasta Sharer</div>
         </NLayoutHeader>
-        <NLayoutContent>
-            <PersonComponent v-for="person in persons" :key="person.index" :person="person"></PersonComponent>
+        <NLayoutContent content-style="padding: 10px">
+            <NSpace vertical>
+                <PersonComponent v-for="person in persons" :key="person.index" :person="person"></PersonComponent>
 
-            <AddPersonComponent></AddPersonComponent>
+                <AddPersonComponent></AddPersonComponent>
 
-            <CookComponent></CookComponent>
+                <CookComponent></CookComponent>
+            </NSpace>
         </NLayoutContent>
 
-        <NLayoutFooter>
-            <n-card>
-                <n-space>
-                    <n-button @click="onSwapTheme"> Changer de thème </n-button>
-                </n-space>
-            </n-card>
+        <NLayoutFooter position="absolute">
+            <NCard>
+                <NSpace>
+                    <NButton @click="onSwapTheme"> Changer de thème </NButton>
+                </NSpace>
+            </NCard>
         </NLayoutFooter>
     </NLayout>
 </template>
@@ -50,19 +52,16 @@ export default defineComponent({
         NSpace,
         PersonComponent,
     },
-    props: {
-        onSwapTheme: Function as PropType<(e: MouseEvent) => void>,
+    computed: {
+        ...mapState(usePastaStore, {
+            persons: 'persons',
+        }),
     },
     data(): DataInterface {
         return {
             name: undefined,
             rawQuantity: undefined,
         };
-    },
-    computed: {
-        ...mapState(usePastaStore, {
-            persons: 'persons',
-        }),
     },
     methods: {
         addPerson() {
@@ -74,6 +73,9 @@ export default defineComponent({
                 this.rawQuantity = undefined;
             }
         },
+    },
+    props: {
+        onSwapTheme: Function as PropType<(e: MouseEvent) => void>,
     },
 });
 </script>
