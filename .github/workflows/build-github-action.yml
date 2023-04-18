@@ -43,5 +43,3 @@ jobs:
           git add .
           git commit -m "New deployment"
           git push
-        env:
-          GITHUB_TOKEN: ${{ secret.CI_GITHUB_TOKEN }}
