@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          github-token: ${{ secrets.CI_GITHUB_TOKEN }}
 
       - name: Setup node
         uses: actions/setup-node@v3
@@ -41,3 +43,5 @@ jobs:
           git add .
           git commit -m "New deployment"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secret.CI_GITHUB_TOKEN }}
