@@ -9,7 +9,34 @@ export default defineConfig({
     build: {
         sourcemap: true,
     },
-    plugins: [vue(), VitePWA({ registerType: 'autoUpdate' })],
+    plugins: [
+        vue(),
+        VitePWA({
+            manifest: {
+                background_color: '#24262c',
+                display: 'standalone',
+                lang: 'fr-FR',
+                name: 'Pasta Sharer',
+                orientation: 'portrait',
+                short_name: 'Pasta',
+                start_url: '/',
+            },
+            manifestFilename: 'manifest.json',
+            minify: true,
+            mode: 'production',
+            outDir: 'dist',
+            registerType: 'autoUpdate',
+            srcDir: 'src',
+            strategies: 'generateSW',
+            workbox: {
+                cleanupOutdatedCaches: true,
+                clientsClaim: true,
+                globPatterns: ['assets/**/*.*', '**.*'],
+                maximumFileSizeToCacheInBytes: 5000000,
+                skipWaiting: true,
+            },
+        }),
+    ],
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url)),
